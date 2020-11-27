@@ -1,17 +1,13 @@
-import React from 'react'
-import '../App.css'
-const Iframe = ( props ) => {
-    
-    if (!props.source) {
-        return <div>Loading....</div>
-    }
+import React from "react";
+import "../containers/pages/App/App.css";
 
-    // const src = source;
-    return(
+const Iframe = (props) => {
+  if (!props.source) {
+    return <div>Loading....</div>;
+  }
 
-            <iframe key={props.clue} src={props.source} id="frame"></iframe>
- 
-    );
-}
+  // const src = source;
+  return <iframe key={props.clue} src={props.source} id="frame"></iframe>;
+};
 
 export default Iframe;
