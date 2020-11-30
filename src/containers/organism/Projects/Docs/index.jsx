@@ -2,15 +2,19 @@ import React, { Component } from "react";
 
 import "./index.css";
 
+import { URL } from "../../../../config/config";
+
 class Docs extends Component {
-  state = {};
+  state = {
+    projectName: this.props.chooseProject,
+  };
 
   render() {
     return (
       <iframe
         key={this.props.editorUpdated}
         className="iframe"
-        src="http://localhost:5000/api-myptm"
+        src={`${URL}/${this.state.projectName}`}
         frameBorder="0"
         title="api-docs"
       ></iframe>

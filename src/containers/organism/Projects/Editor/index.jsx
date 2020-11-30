@@ -8,18 +8,24 @@ import "ace-builds/webpack-resolver";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-vibrant_ink";
 
+// Config
+import { URL } from "../../../../config/config";
+
 class Editor extends Component {
   state = {
     editor_value: "",
+    projectName: this.props.chooseProject,
   };
 
   // Dapatkan source code dari server
   getSourceCode = async () => {
     try {
-      const readFile = await axios.get("http://localhost:5000/readfile");
+      const readFile = await axios.get(
+        `${URL}/v1/source-code/${this.state.projectName}`
+      );
 
       this.setState({
-        editor_value: readFile.data.data,
+        editor_value: readFile.data.data.join("\n"),
       });
     } catch (error) {
       console.log(error);

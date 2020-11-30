@@ -5,34 +5,49 @@ import axios from "axios";
 // CSS
 import "./index.css";
 
+// Config
+import { URL } from "../../../../config/config.js";
+
 class Header extends Component {
   state = {
-    editor_value: "",
+    projectName: this.props.chooseProject,
   };
 
+  // Ketika tombol button ditekan
   handleSaveButton = async (editorChange) => {
     try {
-      if (editorChange) {
-        const sendSourceCode = await axios.post(
-          "http://localhost:5000/append",
-          {
-            source_code: editorChange,
+      const dataUserLogin = localStorage.getItem("userLoggedIn");
+      // Check ada tidak di local storage data user
+      if (dataUserLogin) {
+        // Check apakah kode editor berubah
+        if (editorChange) {
+          const sendSourceCode = await axios.put(
+            `${URL}/v1/source-code/${this.state.projectName}`,
+            {
+              source_code: editorChange.split("\n"),
+            },
+            {
+              headers: {
+                Authorization: `Basic c3dhZ2dlci10ZTp0ZWxrb20=`,
+              },
+            }
+          );
+
+          // Check apakah berhasil mengupdate editor
+          if (sendSourceCode.status === 200) {
+            return this.props.editorUpdated(true);
           }
-        );
-
-        if (sendSourceCode.status === 200) {
-          this.setState({
-            editor_value: "",
-          });
-
-          return this.props.editorUpdated(true);
+          console.log("code editor gagal diupdate");
         }
+        console.log("code editor tidak berubah");
       }
-      console.log("tidak berubah");
+      console.log("user tidak berhak untuk mengakses");
     } catch (err) {
       console.log(err);
     }
   };
+
+  updatedEditor = () => {};
 
   render() {
     let editorChange = this.props.onEditorChange;

@@ -1,0 +1,15 @@
+body {
+  background-color: #1b1b1b;
+}
+
+.form-box {
+  background-color: white;
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 50px;
+}
+
+.icon {
+  width: 300px;
+  margin-top: 50px;
+}
