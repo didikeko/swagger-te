@@ -26,7 +26,7 @@ class Project extends Component {
     let time_delay = 5000;
 
     setTimeout(() => {
-      // Refresh document di set true
+      // Refresh document di set true, value == true
       this.setState({
         refresh_docs: value,
       });
