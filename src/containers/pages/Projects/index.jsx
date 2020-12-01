@@ -12,7 +12,7 @@ import "./index.css";
 class Project extends Component {
   state = {
     editor_value: "",
-    refresh_docs: false,
+    refresh_docs: 0,
     projectName: this.props.match.params.projectName,
   };
 
@@ -22,13 +22,13 @@ class Project extends Component {
     });
   };
 
-  handleEditorUpdated = (value) => {
-    let time_delay = 5000;
+  refreshSwaggerDocs = (value) => {
+    let time_delay = 1000;
 
     setTimeout(() => {
-      // Refresh document di set true, value == true
+      // Refresh document
       this.setState({
-        refresh_docs: value,
+        refresh_docs: this.state.refresh_docs + value,
       });
 
       this.forceUpdate();
@@ -40,7 +40,7 @@ class Project extends Component {
       <Fragment>
         <Header
           onEditorChange={this.state.editor_value}
-          editorUpdated={(value) => this.handleEditorUpdated(value)}
+          editorUpdated={(value) => this.refreshSwaggerDocs(value)}
           chooseProject={this.state.projectName}
         />
         <div className="features">

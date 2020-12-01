@@ -35,7 +35,7 @@ class Header extends Component {
 
           // Check apakah berhasil mengupdate editor
           if (sendSourceCode.status === 200) {
-            return this.props.editorUpdated(true);
+            return this.props.editorUpdated(1);
           }
           console.log("code editor gagal diupdate");
         }

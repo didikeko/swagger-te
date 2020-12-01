@@ -18,7 +18,6 @@ class Login extends Component {
 
   // Kirim username dan password ke server
   postFormLogin = async (dataUser) => {
-    console.log(dataUser);
     let postDataLogin = await axios.post(`${URL}/v1/auth/login`, dataUser, {
       headers: {
         "Content-Type": "application/json",
