@@ -29,6 +29,7 @@ class Header extends Component {
             {
               headers: {
                 Authorization: `Basic c3dhZ2dlci10ZTp0ZWxrb20=`,
+                "Content-Type": "application/json",
               },
             }
           );

@@ -37,11 +37,13 @@ class Dashboard extends Component {
       this.state.formCreateProject,
       {
         headers: {
-          Authorization: `Basic c3dhZ2dlci10ZTp0Zwxrb20`,
+          "Content-Type": "application/json",
+          Authorization: `Basic c3dhZ2dlci10ZTp0ZWxrb20=`,
         },
       }
     );
     if (sendDataProject.data.code === 200) {
+      console.log();
       this.handleCloseModal();
     }
   };
@@ -66,11 +68,7 @@ class Dashboard extends Component {
   };
 
   getListProject = async () => {
-    const listProject = await axios.get(`${URL}/v1/project`, null, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const listProject = await axios.get(`${URL}/v1/project`);
 
     this.setState({
       listProject: listProject.data.data,
@@ -139,6 +137,7 @@ class Dashboard extends Component {
                 <Form.Control
                   type="text"
                   placeholder="Enter Project Name"
+                  size="sm"
                   onChange={this.handleFormChange}
                   name="project_name"
                   value={this.state.formCreateProject.project || ""}
@@ -150,6 +149,7 @@ class Dashboard extends Component {
                 <Form.Control
                   type="text"
                   placeholder="Title"
+                  size="sm"
                   name="title"
                   onChange={this.handleFormChange}
                   value={this.state.formCreateProject.title || ""}
@@ -161,8 +161,20 @@ class Dashboard extends Component {
                   type="text"
                   name="contact"
                   placeholder="Contact"
+                  size="sm"
                   onChange={this.handleFormChange}
                   value={this.state.formCreateProject.contact || ""}
+                />
+              </Form.Group>
+              <Form.Group controlId="formBasicContact">
+                <Form.Label>Version</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="version"
+                  placeholder="1.0"
+                  size="sm"
+                  onChange={this.handleFormChange}
+                  value={this.state.formCreateProject.version || ""}
                 />
               </Form.Group>
               <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -172,6 +184,7 @@ class Dashboard extends Component {
                   rows={3}
                   onChange={this.handleFormChange}
                   name="description"
+                  size="sm"
                 />
               </Form.Group>
             </Form>

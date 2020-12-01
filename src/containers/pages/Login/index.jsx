@@ -33,7 +33,7 @@ class Login extends Component {
     this.setState({
       alert: {
         show: true,
-        message: "Invalid credential",
+        message: "username atau password salah",
       },
     });
   };
@@ -61,11 +61,11 @@ class Login extends Component {
         }) => (
           <Container fluid>
             <Row className="justify-content-center mt-5">
-              <Alert variant="warning" show={this.state.alert.show || false}>
-                {this.state.alert.message}
-              </Alert>
               <Col lg={4} xs={12} className="form-box">
-                <Form onSubmit={handleSubmit}>
+                <Alert variant="warning" show={this.state.alert.show || false}>
+                  {this.state.alert.message}
+                </Alert>
+                <Form onSubmit={handleSubmit} mt={3}>
                   <Form.Group controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
@@ -97,7 +97,6 @@ class Login extends Component {
                     variant="primary"
                     type="submit"
                     className="float-right"
-                    disabled={isSubmitting}
                   >
                     Login
                   </Button>
