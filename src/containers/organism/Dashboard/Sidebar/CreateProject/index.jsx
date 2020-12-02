@@ -85,11 +85,11 @@ class CreateProject extends Component {
           resetForm();
         }}
         validationSchema={Yup.object().shape({
-          project_name: Yup.string().required("Username is required"),
-          title: Yup.string().required("Password is required"),
-          contact: Yup.string().required("Password is required"),
-          version: Yup.string().required("Password is required"),
-          description: Yup.string().required("Password is required"),
+          project_name: Yup.string().required("Project name is required"),
+          title: Yup.string().required("Title is required"),
+          contact: Yup.string().required("Contact is required"),
+          version: Yup.string().required("Version is required"),
+          description: Yup.string().required("Description is required"),
         })}
       >
         {({
