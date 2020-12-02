@@ -1,6 +1,4 @@
-body {
-  background-color: #1b1b1b;
-}
+
 
 .form-box {
   background-color: white;
@@ -12,4 +10,8 @@ body {
 .icon {
   width: 300px;
   margin-top: 50px;
+}
+
+.error-validation {
+  color: red;
 }

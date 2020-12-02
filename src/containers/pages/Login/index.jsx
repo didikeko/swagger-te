@@ -11,6 +11,9 @@ import { URL } from "../../../config/config";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// CSS
+import "./index.css";
+
 class Login extends Component {
   state = {
     alert: {},
@@ -77,7 +80,9 @@ class Login extends Component {
                       onBlur={handleBlur}
                       value={values.username}
                     />
-                    {errors.username && touched.username && errors.username}
+                    <small className="error-validation">
+                      {errors.username && touched.username && errors.username}
+                    </small>
                   </Form.Group>
 
                   <Form.Group controlId="formBasicPassword">
@@ -91,7 +96,9 @@ class Login extends Component {
                       onBlur={handleBlur}
                       value={values.password}
                     />
-                    {errors.password && touched.password && errors.password}
+                    <small className="error-validation">
+                      {errors.password && touched.password && errors.password}
+                    </small>
                   </Form.Group>
                   <Button
                     variant="primary"

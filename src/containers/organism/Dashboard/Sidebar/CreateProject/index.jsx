@@ -1,0 +1,212 @@
+// Library
+import React, { Component, Fragment } from "react";
+import axios from "axios";
+import { Modal, Button, Form } from "react-bootstrap";
+import { Formik } from "formik";
+import * as Yup from "yup";
+
+import { Redirect } from "react-router-dom";
+
+// Config
+import { URL } from "../../../../../config/config";
+
+// Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+
+// CSS
+import "./index.css";
+
+class CreateProject extends Component {
+  state = {
+    show: false,
+    redirectToProject: "",
+  };
+
+  getListProject = async () => {
+    const listProject = await axios.get(`${URL}/v1/project`);
+    return listProject;
+  };
+
+  // Post data form modal
+  postFormCreateProject = async (dataProject) => {
+    try {
+      let sendDataProject = await axios.post(`${URL}/v1/project`, dataProject, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic c3dhZ2dlci10ZTp0ZWxrb20=`,
+        },
+      });
+
+      if (sendDataProject.data.code === 201) {
+        // Redirect Project
+        let timeout = 1000;
+        setTimeout(() => {
+          this.setState({
+            redirectToProject: `/project/${dataProject.project_name}`,
+          });
+        }, timeout);
+        return this.handleCloseModal();
+      }
+      console.log("gagal create project");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Menutup modal create project
+  handleCloseModal = () => {
+    this.setState({
+      show: false,
+    });
+  };
+
+  // Menampilkan modal create project
+  handleShowModal = () => {
+    this.setState({
+      show: true,
+    });
+  };
+
+  render() {
+    if (this.state.redirectToProject) {
+      return <Redirect to={this.state.redirectToProject}></Redirect>;
+    }
+    return (
+      <Formik
+        initialValues={{
+          project_name: "",
+          title: "",
+          contact: "",
+          version: "",
+          description: "",
+        }}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          this.postFormCreateProject(values);
+          resetForm();
+        }}
+        validationSchema={Yup.object().shape({
+          project_name: Yup.string().required("Username is required"),
+          title: Yup.string().required("Password is required"),
+          contact: Yup.string().required("Password is required"),
+          version: Yup.string().required("Password is required"),
+          description: Yup.string().required("Password is required"),
+        })}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <Fragment>
+            <Button variant="primary" onClick={this.handleShowModal}>
+              Create Project
+            </Button>
+            <Modal show={this.state.show} onHide={this.handleCloseModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Create Project</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group controlId="formBasicProject">
+                    <Form.Label>Project</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter project"
+                      name="project_name"
+                      size="sm"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.project_name || ""}
+                    />
+                    <small className="error-validation">
+                      {errors.project_name &&
+                        touched.project_name &&
+                        errors.project_name}
+                    </small>
+                  </Form.Group>
+
+                  <Form.Group controlId="formBasicTitle">
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Title"
+                      name="title"
+                      size="sm"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.title}
+                    />
+                    <small className="error-validation">
+                      {errors.title && touched.title && errors.title}
+                    </small>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicContact">
+                    <Form.Label>Contact</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Contact"
+                      name="contact"
+                      size="sm"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.contact}
+                    />
+                    <small className="error-validation">
+                      {errors.contact && touched.contact && errors.contact}
+                    </small>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicVersion">
+                    <Form.Label>Version</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="1.0"
+                      name="version"
+                      size="sm"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.version}
+                    />
+                    <small className="error-validation">
+                      {errors.version && touched.version && errors.version}
+                    </small>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicDescription">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      name="description"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.description}
+                    />
+                    <small className="error-validation">
+                      {errors.description &&
+                        touched.description &&
+                        errors.description}
+                    </small>
+                  </Form.Group>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="float-right"
+                  >
+                    Create
+                  </Button>
+                  <Button variant="secondary" onClick={this.handleCloseModal}>
+                    Close
+                  </Button>
+                </Form>
+              </Modal.Body>
+            </Modal>
+          </Fragment>
+        )}
+      </Formik>
+    );
+  }
+}
+
+export default CreateProject;
