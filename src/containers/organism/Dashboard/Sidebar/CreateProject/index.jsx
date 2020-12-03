@@ -76,7 +76,7 @@ class CreateProject extends Component {
         initialValues={{
           project_name: "",
           title: "",
-          contact: "",
+          contacts: "",
           version: "",
           description: "",
         }}
@@ -87,7 +87,7 @@ class CreateProject extends Component {
         validationSchema={Yup.object().shape({
           project_name: Yup.string().required("Project name is required"),
           title: Yup.string().required("Title is required"),
-          contact: Yup.string().required("Contact is required"),
+          contacts: Yup.string().required("Contact is required"),
           version: Yup.string().required("Version is required"),
           description: Yup.string().required("Description is required"),
         })}
@@ -112,10 +112,10 @@ class CreateProject extends Component {
               <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="formBasicProject">
-                    <Form.Label>Project</Form.Label>
+                    <Form.Label>root endpoint</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Enter project"
+                      placeholder=" ex myptm, codex, digiscool, sekolahpijar etc"
                       name="project_name"
                       size="sm"
                       onChange={handleChange}
@@ -149,14 +149,14 @@ class CreateProject extends Component {
                     <Form.Control
                       type="text"
                       placeholder="Contact"
-                      name="contact"
+                      name="contacts"
                       size="sm"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.contact}
+                      value={values.contacts}
                     />
                     <small className="error-validation">
-                      {errors.contact && touched.contact && errors.contact}
+                      {errors.contacts && touched.contacts && errors.contacts}
                     </small>
                   </Form.Group>
                   <Form.Group controlId="formBasicVersion">
